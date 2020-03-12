@@ -77,6 +77,12 @@ class Requete {
   }
 
   addSong(){
+    // Verifie si c'est une music de youtube :
+    let lien = document.getElementById("champsLien").value;
+    if (! lien.includes("http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?")) {
+      alert("Le lien n'est pas bon sale fdp");
+      return;
+    }
     // Prends les infos pour créer un son :
     var data = {
       title: document.getElementById("champsTitre").value,
