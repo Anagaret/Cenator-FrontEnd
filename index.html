@@ -3,18 +3,20 @@
 <head>
   <title>Ajax</title>
 </head>
-<body>
-  <button type="button" id="getPostButton">Récupérer les articles</button>
-  <ul id="textBlock">
-    <li>Aucun article</li>
-    <li>Aucun article</li>
-    <li>Aucun article</li>
-    <li>Aucun article</li>
-  </ul>
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
-  <script src="./script.js"></script>
-</body>
+  <body>
+    <input type="text" id="champsNom" value="" placeholder="Nom">
+    <input type="text" id="champsTitre" value="" placeholder="Titre">
+    <input type="text" id="champsLien" value="" placeholder="Lien">
+    <button type="button" id="addSongButton">Ajouter un song</button>
+
+    <button type="button" id="getSongButton">Récupérer les articles</button>
+    <ul id="textBlock">
+
+    </ul>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="./requete.js"></script>
+  </body>
 </html>

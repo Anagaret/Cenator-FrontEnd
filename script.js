@@ -1,9 +1,9 @@
-let postButton = document.getElementById('getPostButton');
-postButton.addEventListener('click', getPost)
+let songButton = document.getElementById('getSongButton');
+songButton.addEventListener('click', getSong)
 
-function getPost(){
+function getSong(){
   var settings = {
-    "url": "http://127.0.0.1:3000/posts",
+    "url": "http:/127.0.0.1:3000/songs",
     "method": "GET"
   };
   $.ajax(settings).done(function (response) {
@@ -16,10 +16,30 @@ function showText(response){
   textBlock.innerHTML = "";
 
   for(let i = 0; i < response.length; i++) {
-    let line = document.createElement("LI");
-    let lineText = document.createTextNode(`Titre: ${response[i].title}, Content: ${response[i].content}, Date: ${response[i].created_at}`);
-    line.appendChild(lineText); // <li>Texte...</li>
+    //title :
+    let title = document.createElement("h2");
+    let titleText = document.createTextNode(`${response[i].title}`);
+    title.appendChild(titleText); // <h2>Texte...</h2>
+    textBlock.appendChild(title);
+
+    //content :
+      //Lien :
+    let line = document.createElement("p");
+    let lineText = document.createTextNode(`Lien du son : ${response[i].lien}`)
+    line.appendChild(lineText); // <p>Texte...</p>
     textBlock.appendChild(line);
+      //vote :
+    let vote = document.createElement("p");
+    let voteText = document.createTextNode(`vote + : ${response[i].vote_plus},
+                                            - : ${response[i].vote_moins}`)
+    vote.appendChild(voteText); // <p>Texte...</p>
+    textBlock.appendChild(vote);
+      //nom de la personne
+    let name = document.createElement("p");
+    let nameText = document.createTextNode(`Suggéré par ${response[i].name}
+                                            le ${response[i].created_at}`)
+    name.appendChild(nameText); // <p>Texte...</p>
+    textBlock.appendChild(name);
   }
 }
 
