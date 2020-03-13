@@ -1,15 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ajax</title>
+  <meta charset="utf-8">
+  <title>IPSSONG</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/grayscale.min.css" rel="stylesheet">
+
 </head>
   <body>
-    <input type="text" id="champsNom" value="" placeholder="Nom">
+    
+      <!-- Header -->
+  <header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+      <div class="mx-auto text-center">
+        <h1 class="mx-auto my-0 text-uppercase">Grayscale</h1>
+        <h2 class="text-white-50 mx-auto mt-2 mb-5">Time to select your own ringtone.</h2>
+        <form class="form-inline d-flex">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsNom" placeholder="Nom">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsTitre" placeholder="Titre">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsLien" placeholder="Lien">
+          <button type="button" class="btn btn-primary mx-auto" id="addSongButton">Ajouter un son</button>
+          <button type="button" class="btn btn-primary mx-auto" id="getSongButton">Récupérer les articles</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <!--  <input type="text" id="champsNom" value="" placeholder="Nom">
     <input type="text" id="champsTitre" value="" placeholder="Titre">
     <input type="text" id="champsLien" value="" placeholder="Lien">
-    <button type="button" id="addSongButton">Ajouter un song</button>
+    <button type="button" id="addSongButton">Ajouter un song</button> 
 
-    <button type="button" id="getSongButton">Récupérer les articles</button>
+    <button type="button" id="getSongButton">Récupérer les articles</button> -->
     <ul id="textBlock">
 
     </ul>
@@ -18,5 +49,7 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
     <script src="./requete.js"></script>
+
+    
   </body>
 </html>
