@@ -10,12 +10,22 @@ class Requete {
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response);
+      this.showText(response, "all-song");
     });
   }
 
-  showText(response){
-    let textBlock = document.getElementById("textBlock");
+  getTopSong(){
+    var settings = {
+      "url": this.url + "/top/songs",
+      "method": "GET"
+    };
+    $.ajax(settings).done((response) => {
+      this.showText(response, "top-song");
+    });
+  }
+
+  showText(response, partie){
+    let textBlock = document.getElementById(partie);
     textBlock.innerHTML = "";
 
     for(let i = 0; i < response.length; i++) {
@@ -131,10 +141,12 @@ class Requete {
       method: "DELETE",
       ContentType: "application/json"
     };
+    console.log(settings);
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
       this.getSong();
+      this.getTopSong();
     });
   }
 
@@ -161,3 +173,4 @@ let addSongButton = document.getElementById('addSongButton');
 addSongButton.addEventListener('click', function () {requete.addSong()});
 
 window.onload = requete.getSong();
+window.onload = requete.getTopSong();
