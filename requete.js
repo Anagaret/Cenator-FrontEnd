@@ -20,66 +20,83 @@ class Requete {
 
     for(let i = 0; i < response.length; i++) {
       //title :
+      let block = document.createElement("div");
+      block.className = "col-md-4";
+      textBlock.appendChild(block);
+
+      let card = document.createElement("div");
+      card.className = "card mb-4 shadow-sm";
+      block.appendChild(card);
+
+      let cardBody = document.createElement("div");
+      cardBody.className = "card-body";
+      card.appendChild(cardBody);
+
       let title = document.createElement("h2");
+      title.className = "card-Text";
       let titleText = document.createTextNode(`${response[i].title}`);
       title.appendChild(titleText); // <h2>Texte...</h2>
-      textBlock.appendChild(title);
-
+      cardBody.appendChild(title);
       //content :
         //Lien :
       let line = document.createElement("p");
+      line.className = "card-Text";
       line.innerHTML = `Lien du son : <a href='${response[i].lien}'>${response[i].lien}</a>`;
-      // $( "div.demo-container" )   .html( "<p>All new content. <em>You bet!</em></p>" );
-      // let lineText = document.createTextNode(`Lien du son : <a>${response[i].lien}</a>`)
-      //
-      // line.appendChild(lineText); // <p>Texte...</p>
-      textBlock.appendChild(line);
-        //vote :
-      let vote = document.createElement("p");
-      let voteText = document.createTextNode(`vote + : ${response[i].vote_plus},
-                                              - : ${response[i].vote_moins}`)
-      vote.appendChild(voteText); // <p>Texte...</p>
-      textBlock.appendChild(vote);
-        //nom de la personne :
+      cardBody.appendChild(line);
+
+      //date et nom :
       var d = new Date(`${response[i].Date}`);
       var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
       d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
       let name = document.createElement("p");
+      name.className = "card-Text";
       let nameText = document.createTextNode(`Suggéré par ${response[i].name}
                                               le ${datestring}`)
       name.appendChild(nameText); // <p>Texte...</p>
-      textBlock.appendChild(name);
+      cardBody.appendChild(name);
 
-      let boutonSuppr = document.createElement("button");
-      var boutonSupprText = document.createTextNode("supprimer");
-      boutonSuppr.appendChild(boutonSupprText);
-      textBlock.appendChild(boutonSuppr);
-      boutonSuppr.addEventListener("click", () => {
-        this.deleteSong(response[i]._id);
-      });
+      // partie bouton :
+      let boutons = document.createElement("div");
+      boutons.className = "d-flex justify-content-between align-items-center";
+      cardBody.appendChild(boutons);
 
+      let boutonsGroup = document.createElement("div");
+      boutonsGroup.className = "btn-group";
+      boutons.appendChild(boutonsGroup);
+      // vote plus
       let boutonUp = document.createElement("button");
-      var boutonUpText = document.createTextNode("+++++++");
-      boutonUp.appendChild(boutonUpText);
-      textBlock.appendChild(boutonUp);
+      boutonUp.className = "btn btn-sm btn-outline-success";
+      boutonUp.innerHTML = `${response[i].vote_plus} <i class="far fa-thumbs-up fa-2x"></i>`;
+      boutonsGroup.appendChild(boutonUp);
       boutonUp.addEventListener("click", () => {
         this.voteSong(response[i]._id, true);
       });
-
+      //vote moins
       let boutonDown = document.createElement("button");
-      var boutonDownText = document.createTextNode("------");
-      boutonDown.appendChild(boutonDownText);
-      textBlock.appendChild(boutonDown);
+      boutonDown.className = "btn btn-sm btn-outline-warning";
+      boutonDown.innerHTML = `${response[i].vote_moins} <i class="far fa-thumbs-down fa-2x"></i>`;
+      boutonsGroup.appendChild(boutonDown);
       boutonDown.addEventListener("click", () => {
         this.voteSong(response[i]._id, false);
+      });
+      // suppression
+      let boutonSuppr = document.createElement("button");
+      boutonSuppr.className = "btn btn-sm btn-danger";
+      boutonSuppr.innerHTML = '<i class="fas fa-trash-alt fa-2x"></i>';
+      boutonsGroup.appendChild(boutonSuppr);
+      boutonSuppr.addEventListener("click", () => {
+        this.deleteSong(response[i]._id);
       });
     }
   }
 
   addSong(){
     // Verifie si c'est une music de youtube :
-    let lien = document.getElementById("champsLien").value;
-    if (! lien.includes("http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?")) {
+    let lien = document.getElementById("champsLien").value.toString();
+    console.log(lien.type);
+    console.log(lien);
+    // if (! lien.includes('http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?')) {
+    if (! (lien.includes("https://www.youtube.com/watch?") || lien.includes("https://music.youtube.com/watch?"))){
       alert("Le lien n'est pas bon sale fdp");
       return;
     }
@@ -142,3 +159,5 @@ songButton.addEventListener('click', function () {requete.getSong()});
 
 let addSongButton = document.getElementById('addSongButton');
 addSongButton.addEventListener('click', function () {requete.addSong()});
+
+window.onload = requete.getSong();
