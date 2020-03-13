@@ -1,16 +1,128 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ajax</title>
+  <meta charset="utf-8">
+  <title>IPSSONG</title>
+
+  <!-- Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=VT323&display=swap">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/grayscale.min.css" rel="stylesheet">
+  <link href="css/home.css" rel="stylesheet">
+
 </head>
   <body>
-    <input type="text" id="champsNom" value="" placeholder="Nom">
-    <input type="text" id="champsTitre" value="" placeholder="Titre">
-    <input type="text" id="champsLien" value="" placeholder="Lien">
-    <button type="button" id="addSongButton">Ajouter un song</button>
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/IPSSI_logo.png" class="img-fluid ipssiLogo" alt="IPSSI"}></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#tranding">Tranding</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#random">Random</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#statistics">Statistics</a>
+          </li>
+        </ul>
+      </div>
+    </div> 
+  </nav>  
+    
+      <!-- Header -->
+  <header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+      <div class="mx-auto text-center">
+        <h1 class="mx-auto my-0 text-uppercase"><img src="img/IPSSONG-Logo.png" class="img-fluid"></h1>
+        <h2 class="text-white-50 mx-auto mt-2 mb-5">Time to select your own ringtone.</h2>
+        <form class="form-inline d-flex">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsNom" placeholder="Nom d'utilisateur">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsTitre" placeholder="Titre du son">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsLien" placeholder="Lien du son">
+          <button type="button" class="btn btn-primary mx-auto" id="addSongButton">Ajouter un son</button>
+          <button type="button" class="btn btn-primary mx-auto" id="getSongButton">Récupérer les articles</button>
+        </form>
+      </div>
+    </div>
+  </header>
 
-    <button type="button" id="getSongButton">Récupérer les articles</button>
-    <ul id="textBlock">
+    <!-- About Section -->
+  <section id="about" class="about-section text-center">
+   <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <div class="card-body">
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+
+
+
+ <!-- Projects Section -->
+  <!-- <section id="projects" class="projects-section bg-light">
+    <div class="container">
+    <ul id="textBlock"> -->
 
     </ul>
     <script
@@ -18,5 +130,7 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
     <script src="./requete.js"></script>
+
+    
   </body>
 </html>
