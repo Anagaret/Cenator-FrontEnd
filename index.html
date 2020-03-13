@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title>IPSSONG</title>
 
+  <!-- Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=VT323&display=swap">
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -17,17 +20,41 @@
 
 </head>
   <body>
+  
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/IPSSI_logo.png" class="img-fluid"></a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#tranding">Tranding</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#random">Random</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#statistics">Statistics</a>
+          </li>
+        </ul>
+      </div>
+    </div> 
+  </nav>  
     
       <!-- Header -->
   <header class="masthead">
     <div class="container d-flex h-100 align-items-center">
       <div class="mx-auto text-center">
-        <h1 class="mx-auto my-0 text-uppercase">Grayscale</h1>
+        <h1 class="mx-auto my-0 text-uppercase"><img src="img/IPSSONG-Logo.png" class="img-fluid"></h1>
         <h2 class="text-white-50 mx-auto mt-2 mb-5">Time to select your own ringtone.</h2>
         <form class="form-inline d-flex">
-          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsNom" placeholder="Nom">
-          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsTitre" placeholder="Titre">
-          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsLien" placeholder="Lien">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsNom" placeholder="Nom d'utilisateur">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsTitre" placeholder="Titre du son">
+          <input type="text" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="champsLien" placeholder="Lien du son">
           <button type="button" class="btn btn-primary mx-auto" id="addSongButton">Ajouter un son</button>
           <button type="button" class="btn btn-primary mx-auto" id="getSongButton">Récupérer les articles</button>
         </form>
