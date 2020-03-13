@@ -127,6 +127,7 @@ class Requete {
     $.ajax(settings).done((response) => {
       console.log(response);
       this.getSong();
+      this.getTopSong();
     });
     //Reinitialise les valeurs a 0 :
     document.getElementById("champsTitre").value = "";
@@ -161,13 +162,14 @@ class Requete {
     $.ajax(settings).done((response) => {
       console.log(response);
       this.getSong();
+      this.getTopSong();
     });
   }
 }
 
 var requete = new Requete();
-let songButton = document.getElementById('getSongButton');
-songButton.addEventListener('click', function () {requete.getSong()});
+// let songButton = document.getElementById('getSongButton');
+// songButton.addEventListener('click', function () {requete.getSong()});
 
 let addSongButton = document.getElementById('addSongButton');
 addSongButton.addEventListener('click', function () {requete.addSong()});
