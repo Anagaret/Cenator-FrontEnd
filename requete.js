@@ -1,5 +1,5 @@
 
-class Requete {
+class RequeteSong {
   constructor() {
     this.url = "http://127.0.0.1:3000";
   }
@@ -55,7 +55,7 @@ class Requete {
       cardBody.appendChild(line);
 
       //date et nom :
-      var d = new Date(`${response[i].Date}`);
+      var d = new Date(`${response[i].date}`);
       var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
       d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
       let name = document.createElement("p");
@@ -107,7 +107,7 @@ class Requete {
     console.log(lien);
     // if (! lien.includes('http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?')) {
     if (! (lien.includes("https://www.youtube.com/watch?") || lien.includes("https://music.youtube.com/watch?"))){
-      alert("Le lien n'est pas bon sale fdp");
+      alert("Le lien youtube n'est pas correct, tu fais déshonneur a ton existance");
       return;
     }
     // Prends les infos pour créer un son :
@@ -167,7 +167,7 @@ class Requete {
   }
 }
 
-var requete = new Requete();
+var requete = new RequeteSong();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 
