@@ -165,6 +165,18 @@ class RequeteSong {
       this.getTopSong();
     });
   }
+  connectUser(email, password){
+    // Config la route d'envoie des infos :
+    var settings = {
+      url: this.url + "/connection/",
+      method: "POST",
+      ContentType: "application/json"
+    };
+    // Envoie la requete :
+    $.ajax(settings).done((response) => {
+      console.log(response);
+    });
+  }
 }
 
 var requete = new RequeteSong();
