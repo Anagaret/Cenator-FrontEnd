@@ -1,56 +1,46 @@
 
-class RequeteTime {
+class RequeteProject {
   constructor() {
     this.url = "http://127.0.0.1:3000";
   }
 
-  getProjectTime(id_project){
+  getAllProject(){
     var settings = {
-      "url": this.url + "/project/" + id_project + "/times",
+      "url": this.url + "/projects",
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "all-times");
+      this.showText(response, "all-project");
     });
   }
 
-  getProjectUserTime(id_user, id_project){
+  getProject(id_project){
     var settings = {
-      "url": this.url + "/project/" + id_project + "/" + id_user + "/times",
+      "url": this.url + "/project/" + id_project,
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "my-times");
+      this.showText(response, "project");
     });
   }
 
-  getOneTimes(id_group){
+  getMyProject(id_user){
     var settings = {
-      "url": this.url + "/groups/" + id_group,
+      "url": this.url + "/project/" + id_user,
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "one-time");
+      this.showText(response, "my-project");
     });
   }
 
-  startTimes(id_times){
+  deleteOneProject(id_project){
     var settings = {
-      "url": this.url + "/" + id_times + "/start",
-      "method": "PUT"
-    };
-    $.ajax(settings).done((response) => {
-      this.showText(response, "all-times");
-    });
-  }
-
-  deleteOneTimes(id_times, id_project){
-    var settings = {
-      "url": this.url + "/" + id_times + "/update",
+      "url": this.url + "/project/" + id_project,
       "method": "DELETE"
     };
     $.ajax(settings).done((response) => {
-      this.getProjectTime(id_project);
+      this.getAllProject();
     });
   }
 
@@ -130,16 +120,15 @@ class RequeteTime {
     }
   }
 
-  addOneTime(project_id){
+  addOneProject(){
     var data = {
-      name: document.getElementById("champsName").value,
-      project_id: project_id,
-      user_id: document.getElementById("champsUser").value,
-      description: document.getElementById("champsDescription").value
+      title: document.getElementById("champsTitle").value,
+      description: document.getElementById("champsDescription").value,
+      group_id: document.getElementById("champsGroup").value
     };
     // Config la route d'envoie des infos :
     var settings = {
-      url: this.url + "/project/" + project_id + "/add_time",
+      url: this.url + "/projects",
       method: "POST",
       ContentType: "application/json",
       data: data
@@ -147,16 +136,12 @@ class RequeteTime {
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
-      this.getProjectTime(id_project);
+      this.getAllProject();
     });
-    //Reinitialise les valeurs a 0 :
-    document.getElementById("champsName").value = "";
-    document.getElementById("champsUser").value = "";
-    document.getElementById("champsDescription").value = "";
   }
 }
 
-var requete = new RequeteTime();
+var requete = new RequeteProject();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 

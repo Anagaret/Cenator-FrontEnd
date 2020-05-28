@@ -4,53 +4,51 @@ class RequeteUser {
     this.url = "http://127.0.0.1:3000";
   }
 
-  getProjectTime(id_project){
+  getUser(id_user){
     var settings = {
-      "url": this.url + "/project/" + id_project + "/times",
+      "url": this.url + "/user/" + id_user,
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "all-times");
+      this.showText(response, "one-user");
     });
   }
 
-  getProjectUserTime(id_user, id_project){
-    var settings = {
-      "url": this.url + "/project/" + id_project + "/" + id_user + "/times",
-      "method": "GET"
-    };
-    $.ajax(settings).done((response) => {
-      this.showText(response, "my-times");
-    });
+  getAllUser(){
+      var settings = {
+          "url": this.url + "/users",
+          "method": "GET"
+      };
+      $.ajax(settings).done(function (response) {
+          checkUser(response);
+      });
   }
 
-  getOneTimes(id_group){
-    var settings = {
-      "url": this.url + "/groups/" + id_group,
-      "method": "GET"
-    };
-    $.ajax(settings).done((response) => {
-      this.showText(response, "one-time");
-    });
+  checkUser(response)    {
+      console.log("check");
+      var connecte = false;
+      for(let i = 0; i < response.length; i++)    {
+          if ($("#email").val() == response[i].email && $("#pwd").val() == response[i].password)   {
+              console.log("login successfull");
+              var connecte = true;
+              //sessionStorage.setItem("userconnected", response[i].nomdecompte);
+              window.location.href = "index.html";
+          } else {
+              console.log("wrong password or email");
+          }
+      }
+      if(connecte == false){
+          alert("Wrong password or email !")
+      }
   }
 
-  startTimes(id_times){
+  deleteUser(id_user){
     var settings = {
-      "url": this.url + "/" + id_times + "/start",
-      "method": "PUT"
-    };
-    $.ajax(settings).done((response) => {
-      this.showText(response, "all-times");
-    });
-  }
-
-  deleteOneTimes(id_times, id_project){
-    var settings = {
-      "url": this.url + "/" + id_times + "/update",
+      "url": this.url + "/user/" + id_user,
       "method": "DELETE"
     };
     $.ajax(settings).done((response) => {
-      this.getProjectTime(id_project);
+      window.location.href = "connection.html";
     });
   }
 
@@ -130,16 +128,22 @@ class RequeteUser {
     }
   }
 
-  addOneTime(project_id){
+  addUser(){
+    let pwd = document.getElementById("champsPassword").value;
+    let pwd2 = document.getElementById("champsPassword2").value;
+    if (pwd != pwd2) {
+      alert("Les 2 mots de passe doivent être identiques !");
+      return;
+    }
     var data = {
       name: document.getElementById("champsName").value,
-      project_id: project_id,
-      user_id: document.getElementById("champsUser").value,
-      description: document.getElementById("champsDescription").value
+      firstname: document.getElementById("champsFirstName").value,
+      password: pwd,
+      email: document.getElementById("champsEmail").value
     };
     // Config la route d'envoie des infos :
     var settings = {
-      url: this.url + "/project/" + project_id + "/add_time",
+      url: this.url + "/user/inscription",
       method: "POST",
       ContentType: "application/json",
       data: data
@@ -147,21 +151,26 @@ class RequeteUser {
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
-      this.getProjectTime(id_project);
+      window.location.href = "index.html";
     });
     //Reinitialise les valeurs a 0 :
     document.getElementById("champsName").value = "";
-    document.getElementById("champsUser").value = "";
-    document.getElementById("champsDescription").value = "";
+    document.getElementById("champsFirstName").value = "";
+    document.getElementById("champsPassword").value = "";
+    document.getElementById("champsPassword2").value = "";
+    document.getElementById("champsEmail").value = "";
   }
 }
 
-var requete = new RequeteTime();
+var requete = new RequeteUser();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 
 let addSongButton = document.getElementById('addSongButton');
 addSongButton.addEventListener('click', function () {requete.addSong()});
-
+$("#connect").click(function()  {
+  console.log("click");
+  requete.getAllUser();
+});
 window.onload = requete.getSong();
 window.onload = requete.getTopSong();
