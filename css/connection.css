@@ -78,7 +78,7 @@ transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   #logreg-forms{
       width:300px;
   }
-  
+
   #logreg-forms  .social-login{
       width:200px;
       margin:0 auto;
@@ -90,7 +90,7 @@ transition: all 0.3s cubic-bezier(.25,.8,.25,1);
       color:white;
       width:200px;
       height: 56px;
-      
+
   }
   #logreg-forms .social-btn:nth-child(1){
       margin-bottom: 5px;
@@ -105,5 +105,13 @@ transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   #logreg-forms  .google-btn:after{
       content:'Google+';
   }
-  
+
+}
+
+body{
+  background-color: #CCC
+}
+
+form{
+  background-color: #EFEFEF
 }
