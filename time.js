@@ -1,26 +1,56 @@
 
-class RequeteSong {
+class RequeteTime {
   constructor() {
     this.url = "http://127.0.0.1:3000";
   }
 
-  getSong(){
+  getProjectTime(id_project){
     var settings = {
-      "url": this.url + "/songs",
+      "url": this.url + "/project/" + id_project + "/times",
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "all-song");
+      this.showText(response, "all-times");
     });
   }
 
-  getTopSong(){
+  getProjectUserTime(id_user, id_project){
     var settings = {
-      "url": this.url + "/top/songs",
+      "url": this.url + "/project/" + id_project + "/" + id_user + "/times",
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "top-song");
+      this.showText(response, "my-times");
+    });
+  }
+
+  getOneTimes(id_group){
+    var settings = {
+      "url": this.url + "/groups/" + id_group,
+      "method": "GET"
+    };
+    $.ajax(settings).done((response) => {
+      this.showText(response, "one-time");
+    });
+  }
+
+  startTimes(id_times){
+    var settings = {
+      "url": this.url + "/" + id_times + "/start",
+      "method": "PUT"
+    };
+    $.ajax(settings).done((response) => {
+      this.showText(response, "all-times");
+    });
+  }
+
+  deleteOneTimes(id_times, id_project){
+    var settings = {
+      "url": this.url + "/" + id_times + "/update",
+      "method": "DELETE"
+    };
+    $.ajax(settings).done((response) => {
+      this.getProjectTime(id_project);
     });
   }
 
@@ -100,25 +130,16 @@ class RequeteSong {
     }
   }
 
-  addSong(){
-    // Verifie si c'est une music de youtube :
-    let lien = document.getElementById("champsLien").value.toString();
-    console.log(lien.type);
-    console.log(lien);
-    // if (! lien.includes('http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?')) {
-    if (! (lien.includes("https://www.youtube.com/watch?") || lien.includes("https://music.youtube.com/watch?"))){
-      alert("Le lien youtube n'est pas correct, tu fais déshonneur a ton existance");
-      return;
-    }
-    // Prends les infos pour créer un son :
+  addOneTime(project_id){
     var data = {
-      title: document.getElementById("champsTitre").value,
-      name: document.getElementById("champsNom").value,
-      lien: document.getElementById("champsLien").value
+      name: document.getElementById("champsName").value,
+      project_id: project_id,
+      user_id: document.getElementById("champsUser").value,
+      description: document.getElementById("champsDescription").value
     };
     // Config la route d'envoie des infos :
     var settings = {
-      url: this.url + "/songs",
+      url: this.url + "/project/" + project_id + "/add_time",
       method: "POST",
       ContentType: "application/json",
       data: data
@@ -126,60 +147,16 @@ class RequeteSong {
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
-      this.getSong();
-      this.getTopSong();
+      this.getProjectTime(id_project);
     });
     //Reinitialise les valeurs a 0 :
-    document.getElementById("champsTitre").value = "";
-    document.getElementById("champsNom").value = "";
-    document.getElementById("champsLien").value = "";
-  }
-
-  deleteSong(id){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id,
-      method: "DELETE",
-      ContentType: "application/json"
-    };
-    console.log(settings);
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-
-  voteSong(id, vote){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id + "/" + (vote?"plus":"moins"),
-      method: "PUT",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-  connectUser(email, password){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/connection/",
-      method: "POST",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-    });
+    document.getElementById("champsName").value = "";
+    document.getElementById("champsUser").value = "";
+    document.getElementById("champsDescription").value = "";
   }
 }
 
-var requete = new RequeteSong();
+var requete = new RequeteTime();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 

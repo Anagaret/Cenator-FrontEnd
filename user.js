@@ -1,26 +1,54 @@
 
-class RequeteSong {
+class RequeteUser {
   constructor() {
     this.url = "http://127.0.0.1:3000";
   }
 
-  getSong(){
+  getUser(id_user){
     var settings = {
-      "url": this.url + "/songs",
+      "url": this.url + "/user/" + id_user,
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "all-song");
+      this.showText(response, "one-user");
     });
   }
 
-  getTopSong(){
+  getAllUser(){
+      var settings = {
+          "url": this.url + "/users",
+          "method": "GET"
+      };
+      $.ajax(settings).done(function (response) {
+          checkUser(response);
+      });
+  }
+
+  checkUser(response)    {
+      console.log("check");
+      var connecte = false;
+      for(let i = 0; i < response.length; i++)    {
+          if ($("#email").val() == response[i].email && $("#pwd").val() == response[i].password)   {
+              console.log("login successfull");
+              var connecte = true;
+              //sessionStorage.setItem("userconnected", response[i].nomdecompte);
+              window.location.href = "index.html";
+          } else {
+              console.log("wrong password or email");
+          }
+      }
+      if(connecte == false){
+          alert("Wrong password or email !")
+      }
+  }
+
+  deleteUser(id_user){
     var settings = {
-      "url": this.url + "/top/songs",
-      "method": "GET"
+      "url": this.url + "/user/" + id_user,
+      "method": "DELETE"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "top-song");
+      window.location.href = "connection.html";
     });
   }
 
@@ -100,25 +128,22 @@ class RequeteSong {
     }
   }
 
-  addSong(){
-    // Verifie si c'est une music de youtube :
-    let lien = document.getElementById("champsLien").value.toString();
-    console.log(lien.type);
-    console.log(lien);
-    // if (! lien.includes('http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?')) {
-    if (! (lien.includes("https://www.youtube.com/watch?") || lien.includes("https://music.youtube.com/watch?"))){
-      alert("Le lien youtube n'est pas correct, tu fais déshonneur a ton existance");
+  addUser(){
+    let pwd = document.getElementById("champsPassword").value;
+    let pwd2 = document.getElementById("champsPassword2").value;
+    if (pwd != pwd2) {
+      alert("Les 2 mots de passe doivent être identiques !");
       return;
     }
-    // Prends les infos pour créer un son :
     var data = {
-      title: document.getElementById("champsTitre").value,
-      name: document.getElementById("champsNom").value,
-      lien: document.getElementById("champsLien").value
+      name: document.getElementById("champsName").value,
+      firstname: document.getElementById("champsFirstName").value,
+      password: pwd,
+      email: document.getElementById("champsEmail").value
     };
     // Config la route d'envoie des infos :
     var settings = {
-      url: this.url + "/songs",
+      url: this.url + "/user/inscription",
       method: "POST",
       ContentType: "application/json",
       data: data
@@ -126,65 +151,26 @@ class RequeteSong {
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
-      this.getSong();
-      this.getTopSong();
+      window.location.href = "index.html";
     });
     //Reinitialise les valeurs a 0 :
-    document.getElementById("champsTitre").value = "";
-    document.getElementById("champsNom").value = "";
-    document.getElementById("champsLien").value = "";
-  }
-
-  deleteSong(id){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id,
-      method: "DELETE",
-      ContentType: "application/json"
-    };
-    console.log(settings);
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-
-  voteSong(id, vote){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id + "/" + (vote?"plus":"moins"),
-      method: "PUT",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-  connectUser(email, password){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/connection/",
-      method: "POST",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-    });
+    document.getElementById("champsName").value = "";
+    document.getElementById("champsFirstName").value = "";
+    document.getElementById("champsPassword").value = "";
+    document.getElementById("champsPassword2").value = "";
+    document.getElementById("champsEmail").value = "";
   }
 }
 
-var requete = new RequeteSong();
+var requete = new RequeteUser();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 
 let addSongButton = document.getElementById('addSongButton');
 addSongButton.addEventListener('click', function () {requete.addSong()});
-
+$("#connect").click(function()  {
+  console.log("click");
+  requete.getAllUser();
+});
 window.onload = requete.getSong();
 window.onload = requete.getTopSong();

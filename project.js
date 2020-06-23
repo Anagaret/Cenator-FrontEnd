@@ -1,26 +1,46 @@
 
-class RequeteSong {
+class RequeteProject {
   constructor() {
     this.url = "http://127.0.0.1:3000";
   }
 
-  getSong(){
+  getAllProject(){
     var settings = {
-      "url": this.url + "/songs",
+      "url": this.url + "/projects",
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "all-song");
+      this.showText(response, "all-project");
     });
   }
 
-  getTopSong(){
+  getProject(id_project){
     var settings = {
-      "url": this.url + "/top/songs",
+      "url": this.url + "/project/" + id_project,
       "method": "GET"
     };
     $.ajax(settings).done((response) => {
-      this.showText(response, "top-song");
+      this.showText(response, "project");
+    });
+  }
+
+  getMyProject(id_user){
+    var settings = {
+      "url": this.url + "/project/" + id_user,
+      "method": "GET"
+    };
+    $.ajax(settings).done((response) => {
+      this.showText(response, "my-project");
+    });
+  }
+
+  deleteOneProject(id_project){
+    var settings = {
+      "url": this.url + "/project/" + id_project,
+      "method": "DELETE"
+    };
+    $.ajax(settings).done((response) => {
+      this.getAllProject();
     });
   }
 
@@ -100,25 +120,15 @@ class RequeteSong {
     }
   }
 
-  addSong(){
-    // Verifie si c'est une music de youtube :
-    let lien = document.getElementById("champsLien").value.toString();
-    console.log(lien.type);
-    console.log(lien);
-    // if (! lien.includes('http(?:s?)://(?:www.)?youtu(?:be.com/watch?v=|.be/)([\w-_])(&(amp;)?‌​[\w?‌​=])?')) {
-    if (! (lien.includes("https://www.youtube.com/watch?") || lien.includes("https://music.youtube.com/watch?"))){
-      alert("Le lien youtube n'est pas correct, tu fais déshonneur a ton existance");
-      return;
-    }
-    // Prends les infos pour créer un son :
+  addOneProject(){
     var data = {
-      title: document.getElementById("champsTitre").value,
-      name: document.getElementById("champsNom").value,
-      lien: document.getElementById("champsLien").value
+      title: document.getElementById("champsTitle").value,
+      description: document.getElementById("champsDescription").value,
+      group_id: document.getElementById("champsGroup").value
     };
     // Config la route d'envoie des infos :
     var settings = {
-      url: this.url + "/songs",
+      url: this.url + "/projects",
       method: "POST",
       ContentType: "application/json",
       data: data
@@ -126,60 +136,12 @@ class RequeteSong {
     // Envoie la requete :
     $.ajax(settings).done((response) => {
       console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-    //Reinitialise les valeurs a 0 :
-    document.getElementById("champsTitre").value = "";
-    document.getElementById("champsNom").value = "";
-    document.getElementById("champsLien").value = "";
-  }
-
-  deleteSong(id){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id,
-      method: "DELETE",
-      ContentType: "application/json"
-    };
-    console.log(settings);
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-
-  voteSong(id, vote){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/songs/" + id + "/" + (vote?"plus":"moins"),
-      method: "PUT",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
-      this.getSong();
-      this.getTopSong();
-    });
-  }
-  connectUser(email, password){
-    // Config la route d'envoie des infos :
-    var settings = {
-      url: this.url + "/connection/",
-      method: "POST",
-      ContentType: "application/json"
-    };
-    // Envoie la requete :
-    $.ajax(settings).done((response) => {
-      console.log(response);
+      this.getAllProject();
     });
   }
 }
 
-var requete = new RequeteSong();
+var requete = new RequeteProject();
 // let songButton = document.getElementById('getSongButton');
 // songButton.addEventListener('click', function () {requete.getSong()});
 
